@@ -136,3 +136,13 @@ are:
   The final model achieved a training RMSE of `5333` and a test RMSE of `5268`.
 
 ## Fairness Analysis
+
+**Null Hypothesis:** The model is fair. The RMSE is the same for urban and non-urban states.
+**Alternative Hypothesis:** The model is unfair. RMSE for urban states is statistically different than for non-urban states.
+
+For the purpose of this analysis, the groups in consideration where
+`POPPCT_URBAN >= 80` and `POPPCT_URBAN < 80`. The evaluation metric was
+absolute difference between RMSE. The significance level used was 0.05. The
+resulting p-value is 0.143 (>0.05), so we fail to reject the null hypothesis.
+It is likely that the model is fair, at least in regards to bias for or against
+urban areas.
