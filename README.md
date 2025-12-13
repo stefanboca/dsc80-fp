@@ -95,8 +95,44 @@ regardless of whether the climate is cold or not.
 
 ## Framing a Prediction Problem
 
+**Prediction Problem:** Predict the duration of a power outage
+(`OUTAGE.DURATION`) for a given outage event **before power is restored**.
+
+This is a regression task. The response variable is `OUTPUT.DURATION`, outage
+duration in minutes. We only use features known at or soon after the time the
+outage starts, but before the outage is restored: state population, climate
+category, the number of customers affected, and if there is an ongoing
+hurricane. We use the root mean squared error metric.
+
 ## Baseline Model
 
+For the baseline model, we used the `POPULATION` numerical feature and the
+`CLIMATE.CATEGORY` nominal feature, which was encoded with one-hot encoding.
+After preprocessing, linear regression was applied. The baseline model achieved
+a train RMSE of `6052` and a test RMSE of `5600`.
+
 ## Final Model
+
+As in the baseline model, the `POPULATION` numerical feature and the
+`CLIMATE.CATEGORY` nominal feature encoded with one-hot encoding were also used
+in the final model. Additionally, two engineered features were added:
+
+- **Customers affected per capita**: This feature normalizes the number of
+  affected customers by state population, capturing the relative scale of an
+  outage rather than its absolute size.
+- **Hurricane indicator**: A binary variable indicating whether the outage was
+  associated with a named hurricane. Hurricanes often cause widespread
+  infrastructure damage, which can lead to longer restoration times.
+
+The final model used random forest regression. A grid search with 5-fold
+cross-validation was used to find the best-performing hyperparameters, which
+are:
+
+- `max_depth = 5`
+- `min_samples_leaf = 2`
+- `min_samples_split = 10`
+- `n_estimators = 500`
+
+  The final model achieved a training RMSE of `5333` and a test RMSE of `5268`.
 
 ## Fairness Analysis
