@@ -111,6 +111,13 @@ For the baseline model, we used the `POPULATION` numerical feature and the
 After preprocessing, linear regression was applied. The baseline model achieved
 a train RMSE of `6052` and a test RMSE of `5600`.
 
+The baseline model is not very good. The RMSE is roughly double the mean (2625 minutes)
+and eight times the median (701 minutes) of `OUTPUT.DURATION`. The error is much larger
+than the ground truth data being predicted. There are some outliers (the
+maximum duration is 108653 minutes), but as seen above, the majority of
+durations are small and close to the median, so the performance is poor for the
+majority of the dataset.
+
 ## Final Model
 
 As in the baseline model, the `POPULATION` numerical feature and the
