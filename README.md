@@ -81,6 +81,22 @@ reports, not because the true duration is inherently long or short.
 
 Let's explore the missingness of the `DEMAND.LOSS.MW` column.
 
+<iframe src="assets/s3_f1.html" width="800" height="450" frameborder="0"></iframe>
+Here we see the kernel density estimation of the number of affected customers,
+conditioned on missingness of `DEMAND.LOSS.MW`. `True` represents the
+distribution of customers with missing demand, and `False` represents the
+distribution of customers with known demand. A permutation test on these
+columns with an absolute difference of means statistic resulted in a p-value of
+0.1178 (>0.05), which is greater than the significance level. We fail to reject
+the null hypothesis that missingness of `DEMAND.LOSS.MW` is independent of
+`CUSTOMERS.AFFECTED`.
+
+Another permutation test `CAUSE.CATEGORY` and missingness of demand, using the
+total variation distance statistic (because `CAUSE.CATEGORY` is categorical),
+resulted in a p-value of 0.0. This is less than the significance level of 0.5,
+so we reject the null hypothesis. It is highly likely that missingness of
+demand loss is dependent on the cause of the outage.
+
 ## Hypothesis Testing
 
 In this section, we run a permutation test to determine if the `OUTAGE.DURATION` column depends on whether `CLIMATE.CATEGORY` is `"cold"`.
